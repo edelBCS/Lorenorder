@@ -26,8 +26,8 @@
 // next time someone loads the page (usually within a minute).
 // ---------------------------------------------------------------------------
 
-const SHEET_ID = ""; // <-- paste your Google Sheet ID here
-const SHEET_NAME = "Events";
+const SHEET_ID = "1cNLeYSCh79JTZcieolJuekDMi0Bl-4KcVM5jTnVC8ag";
+const SHEET_NAME = "Events"; // falls back to the first tab if not found
 
 const MONTHS = [
   "JAN", "FEB", "MAR", "APR", "MAY", "JUN",
@@ -72,32 +72,29 @@ function renderEvents(items) {
   `).join("");
 }
 
+async function fetchSheet(sheetName) {
+  const base = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+  const url = sheetName ? `${base}&sheet=${encodeURIComponent(sheetName)}` : base;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const text = await res.text();
+    const open = text.indexOf("(");
+    const close = text.lastIndexOf(")");
+    if (open === -1 || close === -1 || close <= open) return null;
+    const data = JSON.parse(text.slice(open + 1, close));
+    if (data?.status === "error") return null;
+    return data;
+  } catch (e) {
+    return null;
+  }
+}
+
 async function loadEvents() {
   if (!SHEET_ID) return;
 
-  const url =
-    `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq` +
-    `?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
-
-  let text;
-  try {
-    const res = await fetch(url);
-    if (!res.ok) return;
-    text = await res.text();
-  } catch (e) {
-    return;
-  }
-
-  const open = text.indexOf("(");
-  const close = text.lastIndexOf(")");
-  if (open === -1 || close === -1 || close <= open) return;
-
-  let data;
-  try {
-    data = JSON.parse(text.slice(open + 1, close));
-  } catch (e) {
-    return;
-  }
+  const data = (await fetchSheet(SHEET_NAME)) || (await fetchSheet(""));
+  if (!data) return;
 
   const cols = (data?.table?.cols || []).map((c) =>
     (c.label || c.id || "").toString().toLowerCase().trim(),
