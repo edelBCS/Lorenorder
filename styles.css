@@ -358,6 +358,70 @@ h2 {
   color: var(--gold);
 }
 
+/* ---------- Showcase image ---------- */
+.showcase {
+  border-top: 1px solid var(--rule);
+}
+
+.showcase .section-inner {
+  padding: 80px 0;
+}
+
+.showcase-figure {
+  position: relative;
+  margin: 0 auto;
+  max-width: 920px;
+  padding: 14px;
+  border: 1px solid var(--rule);
+  background: linear-gradient(
+    160deg,
+    rgba(29, 22, 56, 0.85) 0%,
+    rgba(26, 20, 50, 0.6) 100%
+  );
+  box-shadow: var(--shadow);
+}
+
+.showcase-figure::before,
+.showcase-figure::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--gold-soft);
+  opacity: 0.8;
+}
+
+.showcase-figure::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.showcase-figure::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+.showcase-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+
+.showcase-figure figcaption {
+  margin-top: 14px;
+  text-align: center;
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--ink-faint);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+
 /* ---------- Wares ---------- */
 .wares-grid {
   display: grid;
