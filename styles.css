@@ -389,10 +389,10 @@ h2 {
       transparent 22%
     ),
     radial-gradient(
-      ellipse 65% 75% at center,
-      transparent 25%,
-      rgba(13, 10, 24, 0.35) 60%,
-      rgba(13, 10, 24, 0.85) 100%
+      ellipse 55% 65% at center,
+      transparent 15%,
+      rgba(8, 5, 16, 0.55) 55%,
+      rgba(5, 3, 10, 0.95) 100%
     );
 }
 
