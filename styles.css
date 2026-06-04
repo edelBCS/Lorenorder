@@ -371,33 +371,29 @@ h2 {
   max-height: 620px;
 }
 
-.showcase::before,
 .showcase::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  height: 110px;
+  inset: 0;
   pointer-events: none;
   z-index: 1;
-}
-
-.showcase::before {
-  top: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(13, 10, 24, 0.55) 0%,
-    transparent 100%
-  );
-}
-
-.showcase::after {
-  bottom: 0;
-  background: linear-gradient(
-    0deg,
-    rgba(13, 10, 24, 0.7) 0%,
-    transparent 100%
-  );
+  background:
+    linear-gradient(
+      180deg,
+      rgba(13, 10, 24, 0.55) 0%,
+      transparent 22%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(13, 10, 24, 0.7) 0%,
+      transparent 22%
+    ),
+    radial-gradient(
+      ellipse 65% 75% at center,
+      transparent 25%,
+      rgba(13, 10, 24, 0.35) 60%,
+      rgba(13, 10, 24, 0.85) 100%
+    );
 }
 
 .showcase-img {
